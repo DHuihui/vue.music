@@ -43,12 +43,13 @@
 	</div>
 </template>
 <script>
-//引入loading组件
-import Loading from '@/components/base/loading/Loading.vue';
+
 //引入jsonp
 import jsonp from 'jsonp';
 //引入headertab组件
 import HeaderTab from '@/components/HeaderTab.vue';
+//引入loading组件
+import Loading from '@/components/base/loading/Loading.vue';
 //引入轮播图swiper插件
 import Swiper from 'swiper';
 //引入better-scroll滚动插件
@@ -89,8 +90,8 @@ import api from '@/api/indexApi';
 			});
 		},
 		methods:{
+			//调用接口动态显示轮播图和小圆点
 			_getSlider(){
-				//调用接口动态显示轮播图和小圆点
 				jsonp(api.bannerApi,{param:'jsonpCallback'},(err,data)=>{
 					this.slider = data.data.slider;
 					this.$nextTick(function(){
