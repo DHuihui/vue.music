@@ -39,6 +39,7 @@ export default {
 	left:50%;
 	margin-left: -100px;
 	align-items:center;
+	z-index: 99;
 	.icon{
 		width:25px;
 		height:25px;

@@ -12,10 +12,12 @@
 					<div class="singer-item" v-for="(item,k) in singerList" :key="item.index">
 						<h2 v-text="item.index"></h2>
 						<ul>
-							<li v-for="(singer,j) in item.singer" :key="singer.Fsinger_id">
-								<img :src="'https://y.gtimg.cn/music/photo_new/T001R150x150M000'+ singer.Fsinger_mid +'.jpg?max_age=2592000'">
-								<span v-text="singer.Fsinger_name"></span>
-							</li>
+							<router-link :to="'/singer/' + singer.Fsinger_mid" v-for="(singer,j) in item.singer" :key="singer.Fsinger_id" tag="div">
+								<li >
+									<img :src="'https://y.gtimg.cn/music/photo_new/T001R150x150M000'+ singer.Fsinger_mid +'.jpg?max_age=2592000'">
+									<span v-text="singer.Fsinger_name"></span>
+								</li>
+							</router-link>
 						</ul>
 					</div>
 				</div>
@@ -50,7 +52,7 @@ export default {
   name: '',
   data(){
     return{
-    	loadingState:false,
+    	loadingState:true,
     	singerList:[],
     	indexTool:null,
     	scroll:{},
@@ -63,9 +65,12 @@ export default {
   		//调用整理列表函数
   		this._getOrderSingerList(data.data.list);
   		// console.log(data.data.list);
+  		// 加载完成后关闭加载中组件的显示
+  		this.loadingState = false;
   		// 实例better-scroll
   		this.scroll = new BScroll('.singer-wrapper',{
-  			probeType:3
+  			probeType:3,
+  			click:true
   		});
 
   		//获取y轴坐标
@@ -109,12 +114,16 @@ export default {
   		}
   		// console.log(this.singerList);
   		// 清除无歌手信息的index索引
-  		this.singerList.map((item,k)=>{
-  			if(item.singer.length<=0){
-  				this.singerList.splice(k,1);
-  				this.indexTool.splice(k,1);
-  			}
-  		});
+  		let tempSingerList = [];
+      let tempIndexTool = [];
+      this.singerList.map((item,k)=>{
+        if(item.singer.length > 0){
+          tempSingerList.push(item);
+          tempIndexTool.push(item.index);
+        }
+      });
+      this.singerList = tempSingerList;
+      this.indexTool = tempIndexTool;
   	},
   	_getIndexTool(){
   		let indexArr = ['热'];

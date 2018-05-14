@@ -2,12 +2,17 @@
   <div id="app">
    
     <router-view/>
+    <MiniPlayer></MiniPlayer>
   </div>
 </template>
 
 <script>
+import MiniPlayer from "@/components/MiniPlayer.vue";
 export default {
-  name: 'App'
+    name: 'App',
+    components:{
+        MiniPlayer
+    }
 }
 </script>
 
@@ -15,6 +20,7 @@ export default {
   body{
   	margin:0;
   	background-color: #050605;
+    overflow-x: hidden;
   }
   h1,h2,h3{
     margin:0;
@@ -27,5 +33,6 @@ export default {
   a{
     text-decoration: none;
     color:#fff;
+    -webkit-tap-highlight-color: transparent;
   }
 </style>

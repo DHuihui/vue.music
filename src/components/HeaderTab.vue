@@ -40,7 +40,7 @@
 		}
 		.nav{
 			display:flex;
-			margin-top:10px;
+			margin-top:25px;
 			a{
 				flex:1;
 				span{
